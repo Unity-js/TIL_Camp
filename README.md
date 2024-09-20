@@ -154,5 +154,100 @@ End Text 수정
   
 </details>
 
+<details>
+<summary>2024.09.20 </summary>
 
+오늘도 마찬가지로 개인 공부를 하며 C# 체크리스트 2번째 강의를 들었습니다.
 
+매개변수는 아직 헷갈리긴 하지만 튜터님이 진행하신 강의로 이해하게 되었습니다.
+
+TIL 강의에서는 전 기수 분의 우수 TIL을 보게 되었습니다. 제가 기존에 생각하던 느낌이랑 많이 달라서 차차 캠프를 보내면서, 기술적인 부분에서
+TIL을 다듬어 나가야 할 거 같습니다.
+
+그리고 2주차 숙제를 어제 끝내지 못해서 숫자 맞추기 , 틱택토 게임을 구현했습니다.
+
+틱택토 게임에서 배열을 주로 사용 하였는데 이차원 배열을 구현하는 과정에서 이중 반복문을 사용해, 보기 편하게 그리고,
+while 문에 조건으로 논리 연산자를 추가해서 번갈아 입력할 수 있도록 구현했습니다.
+
+bool 값을 이용하는게 코드를 좀 더 간소화 하는데 도움이 될거 같아 적용 해 보았습니다.
+
+```C
+// 틱택토 2차원 과제 연습
+
+string[] tile = new string[9] { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+bool playerturn = true;
+int numturn = 0;
+
+while (!Wincheck() && numturn != 9)
+{
+    Tile();
+
+    if (playerturn)
+    {
+        Console.WriteLine("플레이어1 의 턴입니다.");
+    }
+    else
+    {
+        Console.WriteLine("플레이어2 의 턴입니다.");
+    }
+
+    string select = Console.ReadLine();
+
+    if (tile.Contains(select) && select != "X" && select != "O")
+    {
+        int tileinfo = Convert.ToInt32(select) - 1;
+
+        if (playerturn)
+        {
+            tile[tileinfo] = "X";
+        }
+        else
+        {
+            tile[tileinfo] = "O";
+        }
+
+        numturn++;
+    }
+
+    playerturn = !playerturn;
+}
+
+if (Wincheck())
+{
+    Console.WriteLine("승리!");
+}
+
+else
+{
+    Console.WriteLine("무승부!");
+}
+
+bool Wincheck()
+{
+    bool row1 = tile[0] == tile[1] && tile[1] == tile[2];
+    bool row2 = tile[3] == tile[4] && tile[4] == tile[5];
+    bool row3 = tile[6] == tile[7] && tile[7] == tile[8];
+    bool column1 = tile[0] == tile[3] && tile[3] == tile[6];
+    bool column2 = tile[1] == tile[4] && tile[4] == tile[7];
+    bool column3 = tile[2] == tile[5] && tile[5] == tile[8];
+    bool diagonal1 = tile[0] == tile[4] && tile[4] == tile[8];
+    bool diagonal2 = tile[6] == tile[4] && tile[4] == tile[2];
+
+    return row1 || row2 || row3 || column1 || column2 || column3 || diagonal1 || diagonal2;
+}
+
+void Tile()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            Console.Write("|" + tile[i * 3 + j] + "|");
+        }
+
+        Console.WriteLine();
+    }
+```
+
+</details>
