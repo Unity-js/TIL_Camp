@@ -443,3 +443,147 @@ Exception 클래스를 상속받아 작성하면됨
 성능면에서 차이가 생김.
 
 </details>
+
+<details>
+<summary>2024.09.25 </summary>
+
+클래스에 플레이어의 특성값을 저장
+
+class jobs
+{
+    public int level = 01;
+    public string name;
+    public string job;
+    public float atk = 10;
+    public float def = 5;
+    public float hp = 100;
+    public float gold = 1500;
+    public int clearcount = 0;
+}
+
+
+메인으로 이루어지는 곳
+
+while 안에서 int 값을 입력 받고, 입력 받은 int 값에 따른 이벤트가 발생
+
+while (true)
+{
+    Console.WriteLine("\n직업을 설정해주세요.\n\n1. 전사\n\n2. 마법사");
+    int jobnum = int.Parse(Console.ReadLine());
+
+
+    switch (jobnum)
+    {
+        case 1:
+            job.job = "전사";
+            break;
+
+        case 2:
+            job.job = "마법사";
+            break;
+
+        default:
+            Console.WriteLine("1 또는 2를 입력해주세요\n");
+            continue;
+    }
+    break;
+}
+
+while (true)
+{
+    Console.WriteLine("\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n\n1. 상태보기\n\n2. 인벤토리\n\n3. 상점\n\n4. 휴식하기\n\n5. 던전 입장\n\n원하시는 행동을 입력해주세요.");
+
+    int action = int.Parse(Console.ReadLine());
+
+    if (job.clearcount == job.level)
+    { 
+        job.level += 1;
+        job.atk += 0.5f;
+        job.def += 1.0f;
+        job.clearcount = 0;
+    }
+
+// 부가기능 플레이어 레벨 상승 시 스탯 상승 
+
+    switch (action)
+
+ 	case 1 ...... 
+
+
+if (intrss == 1)
+{
+    if (purchaseq[0] == true)
+    {
+        Console.WriteLine("판매를 완료했습니다.");
+        purchaseq[0] = false;
+        if (equipq[0]) equipq[0] = false; job.def -= 5;
+        job.gold += 850;
+        break;
+    }
+    else
+    {
+        Console.WriteLine("아이템을 보유하고 있지 않습니다.");
+        break;
+    }
+
+//아이템 판매 트리거
+
+
+
+if (job.def < 5)
+{
+    if (failchance <= 4)
+    {
+        Console.WriteLine("던전 공략에 실패했습니다.");
+        job.hp /= 2;
+    }
+    else
+    {
+        Console.WriteLine("던전 클리어\n축하합니다!!\n쉬운 던전을 클리어하였습니다.\n[탐험 결과]\n");
+        Console.WriteLine($"체력 {job.hp}-> ");
+
+        Random random1 = new Random();
+
+        int damage = random1.Next(20 + (int)job.def - 5, 36 + (int)job.def - 5);
+
+        job.hp -= damage;
+
+        Console.WriteLine($"{job.hp}\n");
+
+        Console.WriteLine($"Gold {job.gold}-> ");
+
+        job.gold += 1000.0f;
+
+        Random random2 = new Random();
+
+        int bonusgoldrad = (int)job.atk;
+
+        float bonusgold = random2.Next(bonusgoldrad, 21);
+
+        job.gold += 1000.0f * (bonusgold * 0.01f);
+
+        Console.WriteLine($"{job.gold}\n");
+
+        job.clearcount += 1;
+
+        if (job.hp <= 0.0f)
+        {
+            Console.WriteLine($"{job.name}님이 사망하셨습니다.");
+            Environment.Exit(0);
+        }
+
+        while (true)
+
+        {
+            Console.WriteLine("\n0. 나가기\n원하시는 행동을 입력해주세요.");
+
+            int intrss = int.Parse(Console.ReadLine());
+
+            if (intrss != 0) Console.WriteLine("상호작용에 맞는 숫자를 입력해주세요.");
+
+            if (intrss == 0) break;
+        }
+    }
+} // 던전 (쉬움) 입장 트리거 , 방어력 비교 후 계산 , 공격력에 따른 추가 골드 계산 , 체력 0이하 일시 사망 후 프로그램 종료
+
+</details>
