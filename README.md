@@ -1216,3 +1216,71 @@ using System.Text; // UTP-8 이모지 때문에 사용
 ㄴ 이 구문 유용하게 사용했습니다.
 
 </details>
+
+<details>
+<summary>2024.10.04 </summary>
+
+마지막 제출을 앞두고 Text Rpg 의 수치조정(밸런스 조정)을 진행했습니다.
+
+기존에 추가되어있던 몹 2종류를 던전에서 실질적으로 등장하게 수정했고, 
+
+플레이어의 기본 스탯 및 몹의 정보를 수정했습니다.
+
+
+```C
+몹 수정 부분 중 1
+
+private (int Health, int Attack, int Defence, int exp) GetStatsByLevel(int level)
+{
+    switch (level)
+    {
+        case 1:
+            return (60, 25, 5, 4);
+        case 2:
+            return (90, 35, 10, 6);
+        case 3:
+            return (160, 45, 15, 8);
+        case 4:
+            return (190, 55, 20, 10);
+        default:
+            return (0, 0, 0, 0); // 유효하지 않은 레벨의 경우 기본값
+    }
+}
+
+Hp값, 공격력, 방어력, 플레이어 획득 경험치량
+
+
+플레이어 수정 부분
+
+ switch (keyInfo.Key)
+ {
+     case ConsoleKey.D1:
+         ShowJobDetails("전사", 30, 50, 700, 150, 3000);
+         GameManager.player = new Player(playerName, "전사", 30, 50, 700, 150, 50, 3000);
+         break;
+     case ConsoleKey.D2:
+         ShowJobDetails("궁수", 50, 30, 500, 120, 3000);
+         GameManager.player = new Player(playerName, "궁수", 50, 30, 500, 120, 50, 3000);
+         break;
+     case ConsoleKey.D3:
+         ShowJobDetails("마법사", 40, 30, 500, 200, 3000);
+         GameManager.player = new Player(playerName, "마법사", 40, 30, 500, 200, 50, 3000);
+         break;
+     case ConsoleKey.D4:
+         ShowJobDetails("도적", 60, 20, 600, 150, 3000);
+         GameManager.player = new Player(playerName, "도적", 60, 20, 600, 150, 50, 3000);
+         break;
+     default:
+         Console.WriteLine("잘못된 선택입니다. 다시 입력해주세요.");
+         Thread.Sleep(500);
+         break;
+ }
+
+player 이름, 직업명, 공격력, 방어력, 체력, 마나, 레벨업 경험치요구량, 초기 골드
+
+```
+
+일주일간 다들 고생많으셨습니다!
+
+
+</details>
