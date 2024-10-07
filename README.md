@@ -1284,3 +1284,43 @@ player 이름, 직업명, 공격력, 방어력, 체력, 마나, 레벨업 경험
 
 
 </details>
+
+<details>
+<summary>2024.10.07 </summary>
+
+개인과제 주입니다.
+기존 zep 에서 보이는 거 처럼 캐릭터를 조작하고, 여러 ui들을 띄우는 것을 unity로 구현하는 과제입니다.
+
+```C
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraMove : MonoBehaviour
+{
+    public Transform target;
+
+    public float smoothSpeed = 3;
+    public Vector2 offset;
+    public float limitMinX, limitMaxX, limitMinY, limitMaxY;
+    float cameraHalfWidth, cameraHalfHeight;
+
+    void Start()
+    {
+        cameraHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
+        cameraHalfHeight = Camera.main.orthographicSize;
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 desiredPosition = new Vector3(
+           Mathf.Clamp(target.position.x + offset.x, limitMinX + cameraHalfWidth, limitMaxX - cameraHalfWidth),   
+           Mathf.Clamp(target.position.y + offset.y, limitMinY + cameraHalfHeight, limitMaxY - cameraHalfHeight), -10);                                                                                                  
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+    }
+}
+
+```
+현재 기본 뼈대를 잡고 플레이어를 따라다니는 카메라 시점까지 구현했고 내일 추가로 ui 쪽을 작업할 예정입니다.
+
+</details>
