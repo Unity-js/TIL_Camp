@@ -1324,3 +1324,85 @@ public class CameraMove : MonoBehaviour
 현재 기본 뼈대를 잡고 플레이어를 따라다니는 카메라 시점까지 구현했고 내일 추가로 ui 쪽을 작업할 예정입니다.
 
 </details>
+
+<details>
+<summary>2024.10.08 </summary>
+
+```c
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMove : MonoBehaviour
+{
+
+    public float moveSpeed = 3.0f;
+    Vector2 movement = new Vector2();
+    Rigidbody2D rigidbody2D;
+
+    Animator animator;
+    string animationsState = "AnimationState";
+
+    enum States
+    {
+        right = 1,
+        left = 2,
+        down = 3,
+        up = 4,
+        idle = 5
+    }
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+    void Update()
+    {
+        UpdateState();
+    }
+
+    private void FixedUpdate()
+    {
+        MoveCharacter();
+    }
+
+    private void MoveCharacter()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        movement.Normalize();
+
+        rigidbody2D.velocity = movement * moveSpeed;
+    }
+
+    private void UpdateState()
+    {
+        if (movement.x > 0)
+        {
+            animator.SetInteger(animationsState, (int)States.right);
+        }
+        else if (movement.x < 0)
+        {
+            animator.SetInteger(animationsState, (int)States.left);
+        }
+        else if (movement.y > 0)
+        {
+            animator.SetInteger(animationsState, (int)States.up);
+        }
+        else if (movement.y < 0)
+        {
+            animator.SetInteger(animationsState, (int)States.down);
+        }
+        else
+        {
+            animator.SetInteger(animationsState, (int)States.idle);
+        }
+    }
+}
+
+
+```
+캐릭터의 기본 이동로직 구현 , 타일셋을 구성하고 콜라이더를 넣어서 벽과의 충돌을 방지하는 것을 구현했습니다. 목요일 ui 등을 추가 할 예정입니다.
+
+</details>
